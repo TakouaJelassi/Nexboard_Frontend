@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexBoard — Modern Project Management</title>
+  <meta name="description" content="NexBoard helps teams organize work, track progress, and ship faster with a clean Kanban-style workflow." />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script>
+    const token = localStorage.getItem('nexboard_token');
+    if (token && token !== 'guest') window.location.replace('pages/dashboard.html');
+  </script>
+</head>
+<body>
+
+  <!-- ── Navigation ───────────────────────────────────────────── -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/img/logo.svg" alt="NexBoard" />
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="btn btn-ghost">Features</a>
+        <a href="#about" class="btn btn-ghost">About</a>
+      </div>
+      <div class="nav-actions">
+        <a href="pages/login.html" class="btn btn-secondary">Sign In</a>
+        <a href="pages/register.html" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <img src="assets/icons/clock.svg" width="14" height="14" class="icon-muted" alt="" />
+          New in 2026 — Real-time collaboration
+        </div>
+        <h1 class="hero-title">
+          Ship faster with<br />
+          <span class="gradient-text">smart workflows</span>
+        </h1>
+        <p class="hero-desc">
+          NexBoard brings your team together on a visual Kanban workspace. Plan sprints, track tasks, and ship with confidence — all in one place.
+        </p>
+        <div class="hero-actions">
+          <a href="pages/register.html" class="btn btn-primary btn-lg">
+            <img src="assets/icons/plus.svg" width="18" height="18" class="btn-icon" alt="" />
+            Start for free
+          </a>
+          <a href="pages/dashboard.html" class="btn btn-secondary btn-lg">
+            View Demo Board
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-board">
+          <div class="hero-board-header">
+            <div class="hero-board-dot" style="background:#ef4444"></div>
+            <div class="hero-board-dot" style="background:#f59e0b"></div>
+            <div class="hero-board-dot" style="background:#10b981"></div>
+            <span style="font-size:0.75rem;color:var(--text-muted);margin-left:8px;font-weight:500;">Sprint 8 — NexBoard</span>
+          </div>
+          <div class="hero-board-cols">
+            <div class="hero-col">
+              <div class="hero-col-title">To Do</div>
+              <div class="hero-task-mini task-mini-purple">Design onboarding flow</div>
+              <div class="hero-task-mini task-mini-cyan">Write API docs</div>
+              <div class="hero-task-mini task-mini-amber">Add dark mode toggle</div>
+            </div>
+            <div class="hero-col">
+              <div class="hero-col-title">In Progress</div>
+              <div class="hero-task-mini task-mini-purple">Auth token refresh</div>
+              <div class="hero-task-mini task-mini-green">Dashboard layout</div>
+            </div>
+            <div class="hero-col">
+              <div class="hero-col-title">Done</div>
+              <div class="hero-task-mini task-mini-green">User registration</div>
+              <div class="hero-task-mini task-mini-green">Kanban drag & drop</div>
+              <div class="hero-task-mini task-mini-cyan">REST API setup</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Features ─────────────────────────────────────────────── -->
+  <section class="features-section" id="features">
+    <div class="section-header">
+      <span class="section-eyebrow">Features</span>
+      <h2>Everything your team needs</h2>
+      <p style="margin-top:12px;max-width:520px;margin-inline:auto;">A complete toolkit for modern project management — built with developers in mind.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🗂️</div>
+        <h3 class="feature-title">Kanban Boards</h3>
+        <p class="feature-desc">Visual workflow with drag-and-drop cards. Organize sprints, epics, and daily tasks with infinite flexibility.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">Real-Time Updates</h3>
+        <p class="feature-desc">See changes instantly as your team works. No refreshing, no stale data — always in sync.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3 class="feature-title">Team Collaboration</h3>
+        <p class="feature-desc">Assign tasks, add comments, mention teammates, and track who's working on what.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3 class="feature-title">Secure Auth</h3>
+        <p class="feature-desc">Token-based authentication with role-based permissions. Your data stays private and protected.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">Progress Tracking</h3>
+        <p class="feature-desc">Visual stats on completed tasks, active sprints, and team velocity — all at a glance.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛠️</div>
+        <h3 class="feature-title">REST API</h3>
+        <p class="feature-desc">Full OpenAPI documentation. Integrate NexBoard into your own workflow and toolchain easily.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────────────── -->
+  <footer style="border-top:1px solid var(--border);padding:40px;text-align:center;" id="about">
+    <img src="assets/img/logo.svg" alt="NexBoard" style="height:32px;margin:0 auto 16px;" />
+    <p style="font-size:0.85rem;color:var(--text-muted);">
+      Built with Django REST Framework & Vanilla JS &nbsp;·&nbsp;
+      Designed by <strong style="color:var(--text-secondary);">Takoua Jelassi</strong> &nbsp;·&nbsp; 2026
+    </p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

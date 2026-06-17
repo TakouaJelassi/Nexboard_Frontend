@@ -1,0 +1,84 @@
+/* ===========================
+   NexBoard — base.css
+   Fonts · Variables · Reset · Typography
+   =========================== */
+
+/* ── Fonts ──────────────────────────────────────────────────── */
+@font-face { font-family: 'Inter'; src: url('../fonts/inter-300.woff2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('../fonts/inter-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('../fonts/inter-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('../fonts/inter-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('../fonts/inter-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('../fonts/inter-800.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
+
+/* ── Variables ──────────────────────────────────────────────── */
+:root {
+  --bg-base:        #08080f;
+  --bg-surface:     #10101a;
+  --bg-card:        #16162a;
+  --bg-card-hover:  #1e1e35;
+  --bg-input:       #12122080;
+  --bg-modal:       #13131f;
+
+  --border:         #ffffff0f;
+  --border-focus:   #7c3aed50;
+
+  --accent-purple:  #7c3aed;
+  --accent-cyan:    #06b6d4;
+  --accent-glow:    #7c3aed40;
+
+  --text-primary:   #f0f0ff;
+  --text-secondary: #8888aa;
+  --text-muted:     #55556a;
+
+  --status-todo:    #3b82f6;
+  --status-doing:   #f59e0b;
+  --status-done:    #10b981;
+  --status-urgent:  #ef4444;
+
+  --surface:        #12121e;
+  --radius-sm:      6px;
+  --radius-md:      12px;
+  --radius-lg:      18px;
+  --radius-xl:      24px;
+
+  --shadow-card:    0 4px 24px #0008, 0 0 0 1px var(--border);
+  --shadow-glow:    0 0 40px var(--accent-glow);
+  --transition:     0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ── Typography ─────────────────────────────────────────────── */
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; }
+h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.8px; }
+h3 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.3px; }
+p  { color: var(--text-secondary); line-height: 1.7; }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ffffff18; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #ffffff28; }

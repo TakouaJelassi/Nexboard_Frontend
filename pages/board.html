@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Board — NexBoard</title>
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/img/logo.svg" alt="NexBoard" />
+      </a>
+      <div class="nav-search">
+        <div style="position:relative;width:100%;">
+          <img src="../assets/icons/search.svg" class="search-icon" alt="" />
+          <input class="form-input" type="search" id="boardSearch" placeholder="Search tasks…"
+            style="padding-left:38px;height:38px;font-size:0.85rem;" oninput="searchTasks(this.value)" />
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-secondary btn-sm" onclick="openMembersModal()">
+          <img src="../assets/icons/users.svg" class="btn-icon" alt="" />
+          <span class="btn-text">Members</span>
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="populateMemberSelects();openModal('newTaskModal')">
+          <img src="../assets/icons/plus.svg" class="btn-icon" alt="" />
+          <span class="btn-text">Add Task</span>
+        </button>
+        <div class="avatar-menu" id="avatarMenu">
+          <div class="user-avatar" id="userAvatar">TJ</div>
+          <div class="avatar-dropdown" id="avatarDropdown">
+            <div class="avatar-dropdown-header">
+              <div class="avatar-dropdown-name" id="avatarName">—</div>
+              <div class="avatar-dropdown-email" id="avatarEmail">—</div>
+            </div>
+            <div class="avatar-dropdown-divider"></div>
+            <button class="avatar-dropdown-item avatar-dropdown-signout" onclick="logout()">
+              <img src="../assets/icons/logout.svg" class="btn-icon" alt="" /> Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <span class="sidebar-section-label">Workspace</span>
+      <a href="dashboard.html" class="sidebar-item">
+        <img src="../assets/icons/grid.svg" class="icon" alt="" />
+        Dashboard
+      </a>
+      <a href="boards.html" class="sidebar-item">
+        <img src="../assets/icons/board.svg" class="icon" alt="" />
+        My Boards
+      </a>
+      <a href="tasks.html" class="sidebar-item">
+        <img src="../assets/icons/clipboard.svg" class="icon" alt="" />
+        My Tasks
+      </a>
+
+      <span class="sidebar-section-label">Boards</span>
+      <div id="sidebarBoards"></div>
+
+      <div class="sidebar-footer">
+        <a href="imprint.html" class="sidebar-footer-link">Imprint</a>
+        <span class="sidebar-footer-sep">·</span>
+        <a href="privacy.html" class="sidebar-footer-link">Privacy</a>
+      </div>
+    </aside>
+
+    <!-- Main Board -->
+    <main class="main-content board-main">
+      <div class="board-header">
+        <div>
+          <div class="board-title-row">
+            <h2 class="board-name" id="boardTitle">Board</h2>
+            <span class="badge badge-todo hidden" id="boardOpenCount"></span>
+          </div>
+          <p class="board-subtitle" id="boardDesc"></p>
+        </div>
+        <div class="board-header-right">
+          <div class="member-avatars" id="memberAvatars"></div>
+          <button class="btn btn-secondary btn-sm" onclick="openModal('filterModal')">
+            <img src="../assets/icons/filter.svg" class="btn-icon" alt="" />
+            Filter
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile column tabs (hidden on desktop) -->
+      <div class="col-tabs" id="colTabs">
+        <button class="col-tab active" data-col="todo"       onclick="switchColTab('todo')">To Do <span class="col-tab-count" id="tab-count-todo">0</span></button>
+        <button class="col-tab"        data-col="inprogress" onclick="switchColTab('inprogress')">In Progress <span class="col-tab-count" id="tab-count-inprogress">0</span></button>
+        <button class="col-tab"        data-col="review"     onclick="switchColTab('review')">Review <span class="col-tab-count" id="tab-count-review">0</span></button>
+        <button class="col-tab"        data-col="done"       onclick="switchColTab('done')">Done <span class="col-tab-count" id="tab-count-done">0</span></button>
+      </div>
+
+      <!-- Kanban Columns -->
+      <div class="board-columns" id="boardColumns">
+
+        <div class="column col-todo" id="col-todo" ondragover="onDragOver(event)" ondrop="onDrop(event,'todo')">
+          <div class="column-header">
+            <div class="column-title"><span class="column-dot"></span> To Do</div>
+            <span class="column-count" id="count-todo">0</span>
+          </div>
+          <div class="task-cards" id="tasks-todo"></div>
+          <button class="add-task-btn" onclick="quickAdd('todo')">
+            <img src="../assets/icons/plus.svg" class="btn-icon" alt="" />
+            Add task
+          </button>
+        </div>
+
+        <div class="column col-doing" id="col-inprogress" ondragover="onDragOver(event)" ondrop="onDrop(event,'inprogress')">
+          <div class="column-header">
+            <div class="column-title"><span class="column-dot"></span> In Progress</div>
+            <span class="column-count" id="count-inprogress">0</span>
+          </div>
+          <div class="task-cards" id="tasks-inprogress"></div>
+          <button class="add-task-btn" onclick="quickAdd('inprogress')">
+            <img src="../assets/icons/plus.svg" class="btn-icon" alt="" />
+            Add task
+          </button>
+        </div>
+
+        <div class="column col-review" id="col-review" ondragover="onDragOver(event)" ondrop="onDrop(event,'review')">
+          <div class="column-header">
+            <div class="column-title">
+              <span class="column-dot"></span> Review
+            </div>
+            <span class="column-count" id="count-review">0</span>
+          </div>
+          <div class="task-cards" id="tasks-review"></div>
+          <button class="add-task-btn" onclick="quickAdd('review')">
+            <img src="../assets/icons/plus.svg" class="btn-icon" alt="" />
+            Add task
+          </button>
+        </div>
+
+        <div class="column col-done" id="col-done" ondragover="onDragOver(event)" ondrop="onDrop(event,'done')">
+          <div class="column-header">
+            <div class="column-title"><span class="column-dot"></span> Done</div>
+            <span class="column-count" id="count-done">0</span>
+          </div>
+          <div class="task-cards" id="tasks-done"></div>
+          <button class="add-task-btn" onclick="quickAdd('done')">
+            <img src="../assets/icons/plus.svg" class="btn-icon" alt="" />
+            Add task
+          </button>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ── Filter Modal ─────────────────────────────────────────── -->
+  <div class="modal-overlay modal-sm" id="filterModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Filter Tasks</h3>
+        <button class="modal-close" onclick="closeModal('filterModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Priority</label>
+          <div class="chip-group" id="filterPriority">
+            <button class="filter-chip active" data-value="all"    onclick="setFilterChip(this,'priority')">All</button>
+            <button class="filter-chip"        data-value="high"   onclick="setFilterChip(this,'priority')">High</button>
+            <button class="filter-chip"        data-value="medium" onclick="setFilterChip(this,'priority')">Medium</button>
+            <button class="filter-chip"        data-value="low"    onclick="setFilterChip(this,'priority')">Low</button>
+          </div>
+        </div>
+        <div class="form-group form-group-mt">
+          <label class="form-label">Due date</label>
+          <div class="chip-group" id="filterDue">
+            <button class="filter-chip active" data-value="all"    onclick="setFilterChip(this,'due')">All</button>
+            <button class="filter-chip"        data-value="today"  onclick="setFilterChip(this,'due')">Today</button>
+            <button class="filter-chip"        data-value="week"   onclick="setFilterChip(this,'due')">This week</button>
+            <button class="filter-chip"        data-value="late"   onclick="setFilterChip(this,'due')">Overdue</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="resetFilters()">Reset</button>
+        <button class="btn btn-primary"   onclick="applyFilters()">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Members Modal ─────────────────────────────────────────── -->
+  <div class="modal-overlay modal-md" id="inviteModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Board Members</h3>
+        <button class="modal-close" onclick="closeModal('inviteModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="membersList" class="members-list"></div>
+        <div class="modal-divider">
+          <label class="form-label">Invite by email</label>
+          <div class="invite-row">
+            <input class="form-input input-flex" type="email" id="inviteEmail" placeholder="colleague@example.com" oninput="hideInviteError()" autocomplete="off" />
+            <button class="btn btn-primary" onclick="inviteMember()">Invite</button>
+          </div>
+          <p id="inviteEmailError" class="alert alert-error hidden"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('inviteModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── New Task Modal ────────────────────────────────────────── -->
+  <div class="modal-overlay" id="newTaskModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">New Task</h3>
+        <button class="modal-close" onclick="closeModal('newTaskModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Title</label>
+          <input class="form-input" type="text" id="taskTitle" placeholder="What needs to be done?" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description <span class="label-optional">(optional)</span></label>
+          <textarea class="form-input textarea-resize" id="taskDesc" rows="3" placeholder="Add more details…"></textarea>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-input" id="taskStatus">
+              <option value="todo">To Do</option>
+              <option value="inprogress">In Progress</option>
+              <option value="review">Review</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Priority</label>
+            <select class="form-input" id="taskPriority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Assign to <span class="label-optional">(optional)</span></label>
+            <select class="form-input" id="taskAssignee">
+              <option value="">Unassigned</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reviewer <span class="label-optional">(optional)</span></label>
+            <select class="form-input" id="taskReviewer">
+              <option value="">None</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Due date</label>
+          <input class="form-input" type="date" id="taskDue" required />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('newTaskModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="createTask()">Create Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Task Detail Modal ─────────────────────────────────────── -->
+  <div class="modal-overlay modal-lg" id="taskDetailModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="detailTitle">Task Detail</h3>
+        <button class="modal-close" onclick="closeModal('taskDetailModal')">✕</button>
+      </div>
+      <div class="modal-body" id="detailBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-danger" onclick="deleteCurrentTask()">Delete</button>
+        <button class="btn btn-secondary" onclick="closeModal('taskDetailModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+<script src="../assets/js/config.js"></script>
+  <script src="../assets/js/templates.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/board.js"></script>
+</body>
+</html>

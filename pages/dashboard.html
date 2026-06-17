@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — NexBoard</title>
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ─────────────────────────────────────────────── -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/img/logo.svg" alt="NexBoard" />
+      </a>
+      <div class="nav-search">
+        <div class="search-wrap">
+          <img src="../assets/icons/search.svg" class="search-icon" alt="" />
+          <input class="form-input search-input" type="search" id="dashboardSearch" placeholder="Search boards, tasks…"
+            oninput="searchDashboard(this.value)" />
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-secondary btn-sm" onclick="openModal('newBoardModal')">
+          <img src="../assets/icons/plus.svg" class="btn-icon" alt="" />
+          <span class="btn-text">New Board</span>
+        </button>
+        <div class="avatar-menu" id="avatarMenu">
+          <div class="user-avatar" id="userAvatar">TJ</div>
+          <div class="avatar-dropdown" id="avatarDropdown">
+            <div class="avatar-dropdown-header">
+              <div class="avatar-dropdown-name" id="avatarName">—</div>
+              <div class="avatar-dropdown-email" id="avatarEmail">—</div>
+            </div>
+            <div class="avatar-dropdown-divider"></div>
+            <button class="avatar-dropdown-item avatar-dropdown-signout" onclick="logout()">
+              <img src="../assets/icons/logout.svg" class="btn-icon" alt="" /> Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-layout">
+    <!-- ── Sidebar ───────────────────────────────────────────── -->
+    <aside class="sidebar">
+      <span class="sidebar-section-label">Workspace</span>
+
+      <a href="dashboard.html" class="sidebar-item active">
+        <img src="../assets/icons/grid.svg" class="icon" alt="" />
+        Dashboard
+      </a>
+      <a href="boards.html" class="sidebar-item">
+        <img src="../assets/icons/board.svg" class="icon" alt="" />
+        My Boards
+      </a>
+      <a href="tasks.html" class="sidebar-item">
+        <img src="../assets/icons/clipboard.svg" class="icon" alt="" />
+        My Tasks
+      </a>
+
+      <span class="sidebar-section-label">Boards</span>
+      <div id="sidebarBoards"></div>
+
+      <div class="sidebar-footer">
+        <a href="imprint.html" class="sidebar-footer-link">Imprint</a>
+        <span class="sidebar-footer-sep">·</span>
+        <a href="privacy.html" class="sidebar-footer-link">Privacy</a>
+      </div>
+    </aside>
+
+    <!-- ── Main ──────────────────────────────────────────────── -->
+    <main class="main-content">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Dashboard</h2>
+          <p class="page-subtitle" id="greetMsg">Good morning! Here's what's happening today.</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('newBoardModal')">
+          <img src="../assets/icons/plus.svg" class="btn-icon" alt="" />
+          <span class="btn-text">New Board</span>
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-purple">
+            <img src="../assets/icons/board.svg" class="stat-img" alt="" />
+          </div>
+          <div>
+            <div class="stat-value" id="statBoards">0</div>
+            <div class="stat-label">Active Boards</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-cyan">
+            <img src="../assets/icons/clipboard.svg" class="stat-img" alt="" />
+          </div>
+          <div>
+            <div class="stat-value" id="statTasks">0</div>
+            <div class="stat-label">Open Tasks</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-green">
+            <img src="../assets/icons/check-circle.svg" class="stat-img" alt="" />
+          </div>
+          <div>
+            <div class="stat-value" id="statDone">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-amber">
+            <img src="../assets/icons/clock.svg" class="stat-img" alt="" />
+          </div>
+          <div>
+            <div class="stat-value" id="statDue">0</div>
+            <div class="stat-label">Due This Week</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts + Tasks Insights -->
+      <div class="insights-row" id="tasksInsights">
+
+        <!-- Doughnut Chart -->
+        <div class="insight-card">
+          <h3 class="insight-title">Task Distribution</h3>
+          <div class="chart-wrap">
+            <canvas id="statusChart" style="max-width:200px;max-height:200px;"></canvas>
+          </div>
+          <div class="chart-legend" id="chartLegend"></div>
+        </div>
+
+        <!-- Recent Tasks Table -->
+        <div class="insight-card">
+          <div class="insight-card-header">
+            <h3 class="insight-title">Recent Tasks</h3>
+            <div class="task-filter-tabs">
+              <button class="filter-tab active" id="tabAssigned" onclick="switchTaskFilter('assigned')">Assigned</button>
+              <button class="filter-tab" id="tabReview" onclick="switchTaskFilter('review')">Review</button>
+            </div>
+          </div>
+          <div id="recentTasksList"></div>
+        </div>
+
+      </div>
+
+      <!-- Boards -->
+      <div class="section-row">
+        <h3 class="section-title">My Boards</h3>
+        <a href="boards.html" class="btn btn-ghost btn-sm">View all</a>
+      </div>
+
+      <div class="boards-grid" id="boardsGrid"></div>
+
+    </main>
+  </div>
+
+  <!-- ── New Board Modal ──────────────────────────────────────── -->
+  <div class="modal-overlay" id="newBoardModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Create New Board</h3>
+        <button class="modal-close" onclick="closeModal('newBoardModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Board name</label>
+          <input class="form-input" type="text" id="newBoardName" placeholder="e.g. Sprint 9, Marketing Q3…" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description <span class="label-optional">(optional)</span></label>
+          <textarea class="form-input textarea-resize" id="newBoardDesc" rows="3" placeholder="What is this board for?"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Accent color</label>
+          <div class="color-picker">
+            <label class="color-option" title="Purple">
+              <input type="radio" name="boardColor" value="#7c3aed" checked class="hidden" />
+              <div class="color-dot" style="background:#7c3aed;"></div>
+            </label>
+            <label class="color-option" title="Cyan">
+              <input type="radio" name="boardColor" value="#06b6d4" class="hidden" />
+              <div class="color-dot" style="background:#06b6d4;"></div>
+            </label>
+            <label class="color-option" title="Green">
+              <input type="radio" name="boardColor" value="#10b981" class="hidden" />
+              <div class="color-dot" style="background:#10b981;"></div>
+            </label>
+            <label class="color-option" title="Amber">
+              <input type="radio" name="boardColor" value="#f59e0b" class="hidden" />
+              <div class="color-dot" style="background:#f59e0b;"></div>
+            </label>
+            <label class="color-option" title="Red">
+              <input type="radio" name="boardColor" value="#ef4444" class="hidden" />
+              <div class="color-dot" style="background:#ef4444;"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('newBoardModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="createBoard()">Create Board</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/templates.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

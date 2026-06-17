@@ -1,0 +1,10 @@
+/* ===========================
+   NexBoard — style.css
+   Entry Point — imports all partials
+   =========================== */
+
+@import url('base.css');        /* Fonts · Variables · Reset · Typography  */
+@import url('components.css');  /* Buttons · Forms · Cards · Modal · Toast */
+@import url('layout.css');      /* Navbar · Sidebar · Main Layout           */
+@import url('board.css');       /* Kanban · Task Cards · Stats              */
+@import url('pages.css');       /* Auth · Hero · Features · Boards Grid     */

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Tasks — NexBoard</title>
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/img/logo.svg" alt="NexBoard" />
+      </a>
+      <div class="nav-search">
+        <div class="search-wrap">
+          <img src="../assets/icons/search.svg" class="search-icon" alt="" />
+          <input class="form-input search-input" type="search" id="taskSearch" placeholder="Search tasks…" oninput="filterTasks()" />
+        </div>
+      </div>
+      <div class="nav-actions">
+        <div class="avatar-menu" id="avatarMenu">
+          <div class="user-avatar" id="userAvatar">TJ</div>
+          <div class="avatar-dropdown" id="avatarDropdown">
+            <div class="avatar-dropdown-header">
+              <div class="avatar-dropdown-name" id="avatarName">—</div>
+              <div class="avatar-dropdown-email" id="avatarEmail">—</div>
+            </div>
+            <div class="avatar-dropdown-divider"></div>
+            <button class="avatar-dropdown-item avatar-dropdown-signout" onclick="logout()">
+              <img src="../assets/icons/logout.svg" class="btn-icon" alt="" /> Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <span class="sidebar-section-label">Workspace</span>
+      <a href="dashboard.html" class="sidebar-item">
+        <img src="../assets/icons/grid.svg" class="icon" alt="" />
+        Dashboard
+      </a>
+      <a href="boards.html" class="sidebar-item">
+        <img src="../assets/icons/board.svg" class="icon" alt="" />
+        My Boards
+      </a>
+      <a href="tasks.html" class="sidebar-item active">
+        <img src="../assets/icons/clipboard.svg" class="icon" alt="" />
+        My Tasks
+      </a>
+
+      <span class="sidebar-section-label">Boards</span>
+      <div id="sidebarBoards"></div>
+
+      <div class="sidebar-footer">
+        <a href="imprint.html" class="sidebar-footer-link">Imprint</a>
+        <span class="sidebar-footer-sep">·</span>
+        <a href="privacy.html" class="sidebar-footer-link">Privacy</a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content page-main">
+      <div class="page-header-simple">
+        <div>
+          <h2 class="page-heading">My Tasks</h2>
+          <p class="page-subtext">Tasks assigned to you or under your review</p>
+        </div>
+        <div class="task-filter-tabs" id="filterTabs">
+          <button class="filter-tab active" id="tabAssigned" onclick="switchFilter('assigned')">Assigned to me</button>
+          <button class="filter-tab" id="tabReview" onclick="switchFilter('review')">Reviewing</button>
+        </div>
+      </div>
+
+      <div id="tasksList"></div>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+<script src="../assets/js/config.js"></script>
+  <script src="../assets/js/templates.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/tasks.js"></script>
+</body>
+</html>

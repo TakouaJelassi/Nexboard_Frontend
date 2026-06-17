@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Boards — NexBoard</title>
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/img/logo.svg" alt="NexBoard" />
+      </a>
+      <div class="nav-search">
+        <div class="search-wrap">
+          <img src="../assets/icons/search.svg" class="search-icon" alt="" />
+          <input class="form-input search-input" type="search" id="boardSearch" placeholder="Search boards…" oninput="filterBoards()" />
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-primary btn-sm" onclick="openModal('newBoardModal')">
+          <img src="../assets/icons/plus.svg" class="btn-icon" alt="" />
+          <span class="btn-text">New Board</span>
+        </button>
+        <div class="avatar-menu" id="avatarMenu">
+          <div class="user-avatar" id="userAvatar">TJ</div>
+          <div class="avatar-dropdown" id="avatarDropdown">
+            <div class="avatar-dropdown-header">
+              <div class="avatar-dropdown-name" id="avatarName">—</div>
+              <div class="avatar-dropdown-email" id="avatarEmail">—</div>
+            </div>
+            <div class="avatar-dropdown-divider"></div>
+            <button class="avatar-dropdown-item avatar-dropdown-signout" onclick="logout()">
+              <img src="../assets/icons/logout.svg" class="btn-icon" alt="" /> Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <span class="sidebar-section-label">Workspace</span>
+      <a href="dashboard.html" class="sidebar-item">
+        <img src="../assets/icons/grid.svg" class="icon" alt="" />
+        Dashboard
+      </a>
+      <a href="boards.html" class="sidebar-item active">
+        <img src="../assets/icons/board.svg" class="icon" alt="" />
+        My Boards
+      </a>
+      <a href="tasks.html" class="sidebar-item">
+        <img src="../assets/icons/clipboard.svg" class="icon" alt="" />
+        My Tasks
+      </a>
+
+      <span class="sidebar-section-label">Boards</span>
+      <div id="sidebarBoards"></div>
+
+      <div class="sidebar-footer">
+        <a href="imprint.html" class="sidebar-footer-link">Imprint</a>
+        <span class="sidebar-footer-sep">·</span>
+        <a href="privacy.html" class="sidebar-footer-link">Privacy</a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content page-main">
+      <div class="page-header-simple">
+        <div>
+          <h2 class="page-heading">My Boards</h2>
+          <p class="page-subtext">All boards you own or are a member of</p>
+        </div>
+      </div>
+
+      <div class="boards-grid" id="boardsGrid"></div>
+    </main>
+  </div>
+
+  <!-- New Board Modal -->
+  <div class="modal-overlay modal-440" id="newBoardModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">New Board</h3>
+        <button class="modal-close" onclick="closeModal('newBoardModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Board name</label>
+          <input class="form-input" type="text" id="newBoardName" placeholder="e.g. Frontend Redesign" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description <span class="label-optional">(optional)</span></label>
+          <input class="form-input" type="text" id="newBoardDesc" placeholder="Short description…" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('newBoardModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="createBoard()">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+<script src="../assets/js/config.js"></script>
+  <script src="../assets/js/templates.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/boards.js"></script>
+</body>
+</html>
