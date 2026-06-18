@@ -401,7 +401,8 @@
 .textarea-resize { resize: vertical; }
 .color-picker   { display: flex; gap: 10px; flex-wrap: wrap; }
 .color-option   { cursor: pointer; }
-.color-dot      { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff2; }
+.color-dot      { width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; transition: border-color .15s, box-shadow .15s; }
+.color-option input:checked + .color-dot { border-color: #fff; box-shadow: 0 0 0 2px #7c3aed; }
 .input-flex     { flex: 1; }
 
 /* ── Sidebar Footer ─────────────────────────────────────────── */
