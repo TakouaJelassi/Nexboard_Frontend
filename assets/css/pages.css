@@ -170,3 +170,49 @@
 }
 .board-new-card:hover { border-color: var(--accent-purple); color: var(--text-secondary); background: var(--bg-card); }
 .board-new-icon       { font-size: 1.8rem; }
+
+/* -- Landing — About & Footer --------------------------------- */
+.about-desc {
+  margin-top: 16px;
+  max-width: 560px;
+  margin-inline: auto;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.landing-footer {
+  border-top: 1px solid var(--border);
+  padding: 40px;
+  text-align: center;
+}
+
+.footer-logo {
+  height: 32px;
+  display: block;
+  margin: 0 auto 16px;
+}
+
+.footer-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--text-secondary);
+}
