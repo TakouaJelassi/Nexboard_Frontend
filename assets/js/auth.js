@@ -85,7 +85,7 @@ function initLoginForm() {
     const err = document.getElementById('errorMsg');
     btn.disabled    = true;
     btn.textContent = 'Signing in…';
-    err.style.display = 'none';
+    err.classList.add('hidden');
 
     try {
       const res = await fetch(`${API}/login/`, {
@@ -101,10 +101,10 @@ function initLoginForm() {
       saveSession(data);
       window.location.href = 'dashboard.html';
     } catch (error) {
-      err.textContent   = error.message;
-      err.style.display = 'block';
-      btn.disabled      = false;
-      btn.textContent   = 'Sign in';
+      err.textContent = error.message;
+      err.classList.remove('hidden');
+      btn.disabled    = false;
+      btn.textContent = 'Sign in';
     }
   });
 }
@@ -122,14 +122,14 @@ function initRegisterForm() {
     const btn  = document.getElementById('submitBtn');
     const err  = document.getElementById('errorMsg');
     const succ = document.getElementById('successMsg');
-    err.style.display  = 'none';
-    succ.style.display = 'none';
+    err.classList.add('hidden');
+    succ.classList.add('hidden');
 
     const pw  = document.getElementById('password').value;
     const cpw = document.getElementById('confirmPassword').value;
     if (pw !== cpw) {
-      err.textContent   = 'Passwords do not match.';
-      err.style.display = 'block';
+      err.textContent = 'Passwords do not match.';
+      err.classList.remove('hidden');
       return;
     }
 
@@ -149,14 +149,14 @@ function initRegisterForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(Object.values(data).flat().join(' ') || 'Registration failed');
-      succ.textContent   = 'Account created! Redirecting to login…';
-      succ.style.display = 'block';
+      succ.textContent = 'Account created! Redirecting to login…';
+      succ.classList.remove('hidden');
       setTimeout(() => window.location.href = 'login.html', 1800);
     } catch (error) {
-      err.textContent   = error.message;
-      err.style.display = 'block';
-      btn.disabled      = false;
-      btn.textContent   = 'Create account';
+      err.textContent = error.message;
+      err.classList.remove('hidden');
+      btn.disabled    = false;
+      btn.textContent = 'Create account';
     }
   });
 }

@@ -206,7 +206,6 @@
   font-size: 0.83rem;
   padding: 10px 14px;
   border-radius: var(--radius-md);
-  display: none;
 }
 .alert-error   { background: #ef444418; border: 1px solid #ef444430; color: #fca5a5; }
 .alert-success { background: #10b98118; border: 1px solid #10b98130; color: #6ee7b7; }
