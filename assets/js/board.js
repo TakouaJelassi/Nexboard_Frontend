@@ -242,6 +242,7 @@ async function inviteMember() {
   const input = document.getElementById('inviteEmail');
   const email = input?.value.trim();
   if (!email)                                       { setInviteError('Please enter an email address.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))  { setInviteError('Please enter a valid email address.'); return; }
   if (boardMembers.some(m => m.email === email))    { setInviteError('This person is already a member.'); return; }
   let user;
   try   { user = await apiFetch(ENDPOINTS.emailCheck(email)); }
