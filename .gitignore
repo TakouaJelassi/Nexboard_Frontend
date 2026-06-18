@@ -6,10 +6,10 @@ desktop.ini
 # Editor
 .vscode/
 .idea/
-*.swp
-*.swo
 
 # Misc
 *.bak
 *.tmp
 *.zip
+
+

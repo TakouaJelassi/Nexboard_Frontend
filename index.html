@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NexBoard — Kanban Project Management</title>
-  <meta name="description" content="NexBoard is a full-stack Kanban board app built with Django REST Framework and Vanilla JS." />
+  <title>NexBoard | Kanban task board</title>
+  <meta name="description" content="NexBoard is a Kanban app for managing boards, tasks and team work — built with Django REST Framework and Vanilla JS." />
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <script>
@@ -22,7 +22,6 @@
       </a>
       <div class="nav-links">
         <a href="#features" class="btn btn-ghost">Features</a>
-        <a href="#about" class="btn btn-ghost">About</a>
       </div>
       <div class="nav-actions">
         <a href="pages/login.html" class="btn btn-secondary">Sign In</a>
@@ -39,14 +38,14 @@
       <div class="hero-content">
         <div class="hero-eyebrow">
           <img src="assets/icons/clock.svg" width="14" height="14" class="icon-muted" alt="" />
-          Full-stack portfolio project — 2026
+          Boards · Tasks · Team
         </div>
         <h1 class="hero-title">
-          Keep your work<br />
-          <span class="gradient-text">organized</span>
+          Plan tasks<br />
+          <span class="gradient-text">without the clutter</span>
         </h1>
         <p class="hero-desc">
-          NexBoard is a Kanban board app for managing tasks across projects. Create boards, assign tasks, track priorities, and invite teammates — all in one place.
+          NexBoard is a simple Kanban app I built to practice a complete workflow: accounts, boards, tasks, assignments and a REST API behind it.
         </p>
         <div class="hero-actions">
           <a href="pages/register.html" class="btn btn-primary btn-lg">
@@ -62,10 +61,10 @@
       <div class="hero-visual">
         <div class="hero-board">
           <div class="hero-board-header">
-            <div class="hero-board-dot" style="background:#ef4444"></div>
-            <div class="hero-board-dot" style="background:#f59e0b"></div>
-            <div class="hero-board-dot" style="background:#10b981"></div>
-            <span style="font-size:0.75rem;color:var(--text-muted);margin-left:8px;font-weight:500;">Sprint 8 — NexBoard</span>
+            <div class="hero-board-dot dot-red"></div>
+            <div class="hero-board-dot dot-amber"></div>
+            <div class="hero-board-dot dot-green"></div>
+            <span class="hero-board-label">NexBoard sprint</span>
           </div>
           <div class="hero-board-cols">
             <div class="hero-col">
@@ -94,56 +93,49 @@
   <!-- ── Features ─────────────────────────────────────────────── -->
   <section class="features-section" id="features">
     <div class="section-header">
-      <span class="section-eyebrow">What's included</span>
-      <h2>Built end-to-end</h2>
+      <span class="section-eyebrow">What it does</span>
+      <h2>A small board app with real app basics</h2>
     </div>
     <div class="features-grid">
       <div class="feature-card">
+        <div class="feature-icon"><img src="assets/icons/feature-kanban.svg" alt="" /></div>
         <h3 class="feature-title">Kanban boards</h3>
-        <p class="feature-desc">Four columns — To Do, In Progress, Review, Done. Drag tasks between columns or use the detail view to update status.</p>
+        <p class="feature-desc">Create boards with To Do, In Progress, Review and Done columns. Tasks can be moved on the board or updated from the detail view.</p>
       </div>
       <div class="feature-card">
+        <div class="feature-icon"><img src="assets/icons/feature-tasks.svg" alt="" /></div>
         <h3 class="feature-title">Task management</h3>
-        <p class="feature-desc">Set priority, due date, assignee and reviewer per task. Filter by priority or due date directly on the board.</p>
+        <p class="feature-desc">Each task can have a priority, due date, assignee and reviewer, so the board has enough structure without becoming heavy.</p>
       </div>
       <div class="feature-card">
+        <div class="feature-icon"><img src="assets/icons/feature-team.svg" alt="" /></div>
         <h3 class="feature-title">Team members</h3>
-        <p class="feature-desc">Invite colleagues to a board by email. Member avatars are shown on the board header and task cards.</p>
+        <p class="feature-desc">Add people to a board by email and see members directly in the board header and on task cards.</p>
       </div>
       <div class="feature-card">
+        <div class="feature-icon"><img src="assets/icons/feature-auth.svg" alt="" /></div>
         <h3 class="feature-title">Token authentication</h3>
-        <p class="feature-desc">Register, log in, and stay authenticated with DRF token auth. Guest mode available without an account.</p>
+        <p class="feature-desc">Registration and login use DRF token authentication. There is also a guest mode for quickly checking the UI.</p>
       </div>
       <div class="feature-card">
+        <div class="feature-icon"><img src="assets/icons/feature-dashboard.svg" alt="" /></div>
         <h3 class="feature-title">Dashboard overview</h3>
-        <p class="feature-desc">See all your boards, open tasks, and a status breakdown chart in one view. Quick access to tasks assigned to you.</p>
+        <p class="feature-desc">The dashboard groups boards, open tasks and status numbers in one place, with quick access to assigned work.</p>
       </div>
       <div class="feature-card">
+        <div class="feature-icon"><img src="assets/icons/feature-api.svg" alt="" /></div>
         <h3 class="feature-title">REST API</h3>
-        <p class="feature-desc">Django REST Framework backend with OpenAPI docs at <code>/api/docs/</code>. Fully browsable and documented.</p>
+        <p class="feature-desc">The backend exposes the main project data through Django REST Framework, with OpenAPI docs at <code>/api/docs/</code>.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── About ────────────────────────────────────────────────── -->
-  <section class="features-section" id="about">
-    <div class="section-header">
-      <span class="section-eyebrow">About</span>
-      <h2>A portfolio project</h2>
-      <p class="about-desc">
-        NexBoard was built as a full-stack portfolio piece by <strong>Takoua Jelassi</strong>.<br />
-        The backend is a Django REST API deployed on Render. The frontend is plain HTML, CSS and JavaScript — no framework, no build step.<br /><br />
-        The goal was to build something complete and functional: authentication, data relationships, a real UI, and a clean deployment.
-      </p>
-      <a href="mailto:takoua.jelassi@gmail.com" class="btn btn-secondary" style="margin-top:24px;">Get in touch</a>
-    </div>
-  </section>
 
   <!-- ── Footer ───────────────────────────────────────────────── -->
   <footer class="landing-footer">
     <img src="assets/img/logo.svg" alt="NexBoard" class="footer-logo" />
     <p class="footer-text">
-      Built with Django REST Framework &amp; Vanilla JS &nbsp;·&nbsp;
+      Django REST Framework &amp; Vanilla JS &nbsp;·&nbsp;
       <strong>Takoua Jelassi</strong> &nbsp;·&nbsp; 2026
     </p>
     <div class="footer-links">

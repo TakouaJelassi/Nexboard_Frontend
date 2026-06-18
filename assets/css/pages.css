@@ -86,6 +86,10 @@
 .hero-board:hover        { transform: perspective(1000px) rotateY(-2deg) rotateX(1deg); }
 .hero-board-header       { display: flex; gap: 6px; margin-bottom: 16px; align-items: center; }
 .hero-board-dot          { width: 10px; height: 10px; border-radius: 50%; }
+.dot-red                 { background: #ef4444; }
+.dot-amber               { background: #f59e0b; }
+.dot-green               { background: #10b981; }
+.hero-board-label        { font-size: 0.75rem; color: var(--text-muted); margin-left: 8px; font-weight: 500; }
 .hero-board-cols         { display: flex; gap: 10px; }
 .hero-col                { flex: 1; background: var(--bg-card); border-radius: var(--radius-md); padding: 12px; min-height: 200px; }
 .hero-col-title          { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 10px; }
@@ -133,7 +137,8 @@
 }
 .feature-card:hover        { border-color: #7c3aed25; transform: translateY(-3px); }
 .feature-card:hover::before { opacity: 1; }
-.feature-icon  { width: 48px; height: 48px; border-radius: var(--radius-md); background: linear-gradient(135deg, #7c3aed20, #06b6d412); border: 1px solid #7c3aed20; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.3rem; }
+.feature-icon     { width: 48px; height: 48px; border-radius: var(--radius-md); background: #0d0d1a; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.feature-icon svg { width: 24px; height: 24px; }
 .feature-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
 .feature-desc  { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; }
 
@@ -171,15 +176,7 @@
 .board-new-card:hover { border-color: var(--accent-purple); color: var(--text-secondary); background: var(--bg-card); }
 .board-new-icon       { font-size: 1.8rem; }
 
-/* -- Landing — About & Footer --------------------------------- */
-.about-desc {
-  margin-top: 16px;
-  max-width: 560px;
-  margin-inline: auto;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
+/* -- Landing Footer ------------------------------------------- */
 
 .landing-footer {
   border-top: 1px solid var(--border);
