@@ -137,6 +137,21 @@ function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
+// ── Sidebar boards (shared: dashboard · boards · tasks · board) ──
+function renderSidebarBoards(boards, activeId = null) {
+  const el = document.getElementById('sidebarBoards');
+  if (!el) return;
+  el.innerHTML = boards?.length
+    ? boards.map((b, i) => Templates.sidebarBoard(b, i, activeId)).join('')
+    : Templates.sidebarEmpty();
+}
+
+async function loadSidebarBoards(activeId = null) {
+  let boards = [];
+  try { const data = await apiFetch(ENDPOINTS.boards()); if (data) boards = data; } catch { /* empty */ }
+  renderSidebarBoards(boards, activeId);
+}
+
 // ── Sidebar toggle (mobile) ───────────────────────────────────
 function toggleSidebar() {
   const sidebar  = document.querySelector('.sidebar');

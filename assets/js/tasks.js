@@ -48,18 +48,6 @@ async function switchFilter(filter) {
   }
 }
 
-// ── Sidebar ───────────────────────────────────────────────────
-
-async function loadSidebarBoards() {
-  const el = document.getElementById('sidebarBoards');
-  if (!el) return;
-  try {
-    const data = await apiFetch(ENDPOINTS.boards());
-    if (!data?.length) { el.innerHTML = Templates.sidebarEmpty(); return; }
-    el.innerHTML = data.map((b, i) => Templates.sidebarBoard(b, i)).join('');
-  } catch { /* leave empty */ }
-}
-
 // ── Load ──────────────────────────────────────────────────────
 
 async function loadTasks() {

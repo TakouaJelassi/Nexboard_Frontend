@@ -3,7 +3,7 @@
    Global configuration — load this first on every page
    =========================== */
 
-const API = 'http://127.0.0.1:8000/api';
+const API = 'https://nexboard-backend-ld7s.onrender.com/api';
 
 const ENDPOINTS = {
   boards:       ()      => '/boards/',

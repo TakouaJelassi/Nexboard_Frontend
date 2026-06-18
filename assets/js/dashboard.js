@@ -27,15 +27,6 @@ const DEMO_TASKS = [
 
 let chartInstance = null;
 
-const STATUS_CONFIG = {
-  todo:       { label: 'To Do',       color: '#7c3aed' },
-  'to-do':    { label: 'To Do',       color: '#7c3aed' },
-  inprogress: { label: 'In Progress', color: '#06b6d4' },
-  'in-progress': { label: 'In Progress', color: '#06b6d4' },
-  review:     { label: 'Review',      color: '#f59e0b' },
-  done:       { label: 'Done',        color: '#10b981' },
-};
-
 function drawStatusChart(tasks) {
   const canvas = document.getElementById('statusChart');
   if (!canvas) return;
@@ -108,10 +99,7 @@ function renderRecentTasks(tasks) {
 
   const recent = tasks.slice(0, 6);
 
-  if (!recent.length) {
-    el.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">No tasks yet.</p>';
-    return;
-  }
+  if (!recent.length) { el.innerHTML = Templates.emptyTasks('No tasks yet.'); return; }
 
   el.innerHTML = Templates.taskTable(recent, ['Title','Status','Priority','Due']);
 }
@@ -157,17 +145,6 @@ function renderBoards(boards) {
   if (!grid) return;
 
   grid.innerHTML = boards.map((b, i) => Templates.boardCard(b, i)).join('') + Templates.boardCardNew();
-}
-
-// ── Sidebar Boards ────────────────────────────────────────────────
-
-function renderSidebarBoards(boards, activeBoardId = null) {
-  const el = document.getElementById('sidebarBoards');
-  if (!el) return;
-
-  if (!boards.length) { el.innerHTML = Templates.sidebarEmpty(); return; }
-
-  el.innerHTML = boards.map((b, i) => Templates.sidebarBoard(b, i, activeBoardId)).join('');
 }
 
 // ── Empty States ──────────────────────────────────────────────────

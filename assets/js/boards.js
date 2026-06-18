@@ -21,15 +21,6 @@ function filterBoards() {
   renderBoardList(filtered);
 }
 
-// ── Sidebar ───────────────────────────────────────────────────
-
-function renderSidebarBoards(boards) {
-  const el = document.getElementById('sidebarBoards');
-  if (!el) return;
-  if (!boards.length) { el.innerHTML = Templates.sidebarEmpty(); return; }
-  el.innerHTML = boards.map((b, i) => Templates.sidebarBoard(b, i)).join('');
-}
-
 // ── Create Board ──────────────────────────────────────────────
 
 async function createBoard() {

@@ -264,24 +264,11 @@ function setInviteError(msg) {
 
 function hideInviteError() { setInviteError(''); }
 
-// ── Sidebar Boards ────────────────────────────────────────────
-async function loadSidebarBoards() {
-  const el = document.getElementById('sidebarBoards');
-  if (!el) return;
-  let boards = [];
-  if (!isGuest()) {
-    try { const data = await apiFetch(ENDPOINTS.boards()); if (data) boards = data; } catch { /* empty */ }
-  }
-  el.innerHTML = boards.length
-    ? boards.map((b, i) => Templates.sidebarBoard(b, i, currentBoardId)).join('')
-    : Templates.sidebarEmpty();
-}
-
 // ── Load & Init ───────────────────────────────────────────────
 async function loadTasks() {
   if (isGuest()) { renderBoard(); switchColTab(activeCol); return; }
   tasks = [];
-  if (currentBoardId && currentBoardId < 10000) {
+  if (currentBoardId) {
     try {
       const data = await apiFetch(ENDPOINTS.board(currentBoardId));
       if (data?.tasks)   tasks        = data.tasks;
@@ -302,5 +289,5 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskId = params.get('task_id');
     if (taskId) { const t = tasks.find(t => t.id === Number(taskId)); if (t) openTaskDetail(t.id); }
   });
-  loadSidebarBoards();
+  loadSidebarBoards(currentBoardId);
 });
