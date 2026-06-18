@@ -26,7 +26,8 @@ function filterBoards() {
 async function createBoard() {
   const name = document.getElementById('newBoardName').value.trim();
   if (!name) { showToast('Please enter a board name', 'error'); return; }
-  const desc = document.getElementById('newBoardDesc').value.trim();
+  const desc  = document.getElementById('newBoardDesc').value.trim();
+  const color = document.querySelector('input[name="boardColor"]:checked')?.value || '#7c3aed';
 
   closeModal('newBoardModal');
   document.getElementById('newBoardName').value = '';
@@ -35,7 +36,7 @@ async function createBoard() {
   try {
     const created = await apiFetch(ENDPOINTS.boards(), {
       method: 'POST',
-      body: JSON.stringify({ title: name, description: desc }),
+      body: JSON.stringify({ title: name, description: desc, color }),
     });
     if (created) {
       showToast(`Board "${name}" created!`, 'success');
