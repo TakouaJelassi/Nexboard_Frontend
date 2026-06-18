@@ -13,4 +13,6 @@ const ENDPOINTS = {
   assignedToMe: ()      => '/tasks/assigned-to-me/',
   reviewing:    ()      => '/tasks/reviewing/',
   emailCheck:   email   => `/email-check/?email=${encodeURIComponent(email)}`,
+  comments:     taskId  => `/tasks/${taskId}/comments/`,
+  comment:      (taskId, commentId) => `/tasks/${taskId}/comments/${commentId}/`,
 };

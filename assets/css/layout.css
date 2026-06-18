@@ -368,6 +368,21 @@
 .member-email { font-size: 0.75rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; }
 .member-role  { font-size: 0.72rem; color: var(--text-muted); background: var(--surface); padding: 3px 8px; border-radius: 99px; border: 1px solid var(--border); white-space: nowrap; }
 
+/* ── Remove member / danger icon button ─────────────────────── */
+.btn-icon-danger { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 0.8rem; padding: 2px 6px; border-radius: 4px; line-height: 1; transition: color .15s, background .15s; }
+.btn-icon-danger:hover { color: #ef4444; background: #ef444415; }
+
+/* ── Comments ────────────────────────────────────────────────── */
+.comments-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; max-height: 220px; overflow-y: auto; }
+.comment-item  { display: flex; align-items: flex-start; gap: 10px; }
+.comment-body  { flex: 1; min-width: 0; }
+.comment-meta  { display: flex; gap: 8px; align-items: baseline; margin-bottom: 2px; }
+.comment-author { font-size: 0.8rem; font-weight: 500; }
+.comment-time   { font-size: 0.72rem; color: var(--text-muted); }
+.comment-text   { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.5; margin: 0; }
+.comment-del    { margin-top: 2px; }
+.comment-input-row { display: flex; gap: 8px; margin-top: 4px; }
+
 /* ── Task card extras (board) ────────────────────────────────── */
 .task-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
 .task-desc        { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }

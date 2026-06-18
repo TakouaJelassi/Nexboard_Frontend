@@ -203,17 +203,46 @@ const Templates = {
             ${statusLabels[c]}
           </button>`).join('')}
       </div>
+    </div>
+    <hr class="divider" />
+    <div class="form-group">
+      <label class="form-label">Comments</label>
+      <div id="commentsList" class="comments-list"><p class="text-muted-sm">Loading…</p></div>
+      <div class="comment-input-row">
+        <input class="form-input input-flex" type="text" id="commentInput" placeholder="Write a comment…" onkeydown="if(event.key==='Enter')postComment(${t.id})" />
+        <button class="btn btn-primary btn-sm" onclick="postComment(${t.id})">Send</button>
+      </div>
     </div>`,
 
   // ── Member list item (board members modal) ──────────────────
-  memberItem: (m, i, ownerId) => `
+  memberItem: (m, i, ownerId, currentUserId) => `
     <div class="member-item">
       ${Templates.avatar(m.fullname || m.email, i, 34)}
       <div class="member-info">
         <div class="member-name">${m.fullname || '—'}</div>
         <div class="member-email">${m.email}</div>
       </div>
-      <span class="member-role">${m.id === ownerId ? 'Owner' : 'Member'}</span>
+      ${m.id === ownerId
+        ? '<span class="member-role">Owner</span>'
+        : `<span class="member-role">Member</span>${currentUserId === ownerId
+            ? `<button class="btn-icon-danger" title="Remove member" onclick="removeMember(${m.id})">✕</button>`
+            : ''}`}
+    </div>`,
+
+  // ── Comment item ─────────────────────────────────────────────
+  commentItem: (c, currentUserId) => `
+    <div class="comment-item" data-id="${c.id}">
+      ${Templates.avatar(c.author?.fullname || c.author?.email || '?', 0, 28)}
+      <div class="comment-body">
+        <div class="comment-meta">
+          <span class="comment-author">${c.author?.fullname || c.author?.email || 'Unknown'}</span>
+          <span class="comment-time">${new Date(c.created_at).toLocaleDateString()}</span>
+        </div>
+        <p class="comment-text">${c.text}</p>
+      </div>
+      ${c.author?.id === currentUserId
+        ? `<button class="btn-icon-danger comment-del" title="Delete comment" onclick="deleteComment(${c.id})">✕</button>`
+        : ''}
     </div>`,
 
 };

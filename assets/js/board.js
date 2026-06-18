@@ -161,6 +161,7 @@ function openTaskDetail(id) {
     <button class="btn btn-secondary" onclick="closeModal('taskDetailModal')">Cancel</button>
     <button class="btn btn-primary" onclick="saveTaskDetail(${id})">Save</button>`;
   openModal('taskDetailModal');
+  if (!isGuest()) loadComments(id);
 }
 
 async function saveTaskDetail(id) {
@@ -220,6 +221,56 @@ function updateOpenCount() {
   el.classList.toggle('hidden', open === 0);
 }
 
+// ── Edit Board ────────────────────────────────────────────────
+function openEditBoardModal() {
+  const title = document.getElementById('boardTitle')?.textContent || '';
+  const desc  = document.getElementById('boardDesc')?.textContent  || '';
+  document.getElementById('editBoardName').value = title;
+  document.getElementById('editBoardDesc').value = desc;
+  const color = tasks.length ? null : null;
+  const currentColor = document.querySelector('input[name="editBoardColor"]');
+  if (currentColor) {
+    const match = document.querySelector(`input[name="editBoardColor"][value="${window._boardColor || '#7c3aed'}"]`);
+    if (match) match.checked = true;
+  }
+  openModal('editBoardModal');
+}
+
+async function deleteBoard() {
+  const ok = await showConfirm('Delete this board and all its tasks? This cannot be undone.', 'Delete', true);
+  if (!ok) return;
+  closeModal('editBoardModal');
+  try {
+    await apiFetch(ENDPOINTS.board(currentBoardId), { method: 'DELETE' });
+    showToast('Board deleted', 'info');
+    window.location.href = 'boards.html';
+  } catch {
+    showToast('Could not delete board', 'error');
+  }
+}
+
+async function saveEditBoard() {
+  const title = document.getElementById('editBoardName').value.trim();
+  if (!title) { showToast('Please enter a board name', 'error'); return; }
+  const desc  = document.getElementById('editBoardDesc').value.trim();
+  const color = document.querySelector('input[name="editBoardColor"]:checked')?.value || '#7c3aed';
+
+  closeModal('editBoardModal');
+  try {
+    await apiFetch(ENDPOINTS.board(currentBoardId), {
+      method: 'PATCH',
+      body: JSON.stringify({ title, description: desc, color }),
+    });
+    document.getElementById('boardTitle').textContent = title;
+    document.getElementById('boardDesc').textContent  = desc;
+    window._boardColor = color;
+    showToast('Board updated', 'success');
+    loadSidebarBoards(currentBoardId);
+  } catch {
+    showToast('Could not update board', 'error');
+  }
+}
+
 // ── Members Modal ─────────────────────────────────────────────
 async function openMembersModal() {
   openModal('inviteModal');
@@ -233,8 +284,9 @@ async function openMembersModal() {
       members = data?.members || []; ownerId = data?.owner_id || null;
     }
   } catch { /* show empty */ }
+  const currentUserId = getUser()?.id || null;
   list.innerHTML = members.length
-    ? members.map((m, i) => Templates.memberItem(m, i, ownerId)).join('')
+    ? members.map((m, i) => Templates.memberItem(m, i, ownerId, currentUserId)).join('')
     : Templates.emptyTasks('No members found.');
 }
 
@@ -265,6 +317,65 @@ function setInviteError(msg) {
 
 function hideInviteError() { setInviteError(''); }
 
+async function removeMember(memberId) {
+  const ok = await showConfirm('Remove this member from the board?', 'Remove', true);
+  if (!ok) return;
+  const remaining = boardMembers.filter(m => m.id !== memberId).map(m => m.id);
+  try {
+    await apiFetch(ENDPOINTS.board(currentBoardId), {
+      method: 'PATCH',
+      body: JSON.stringify({ members: remaining }),
+    });
+    boardMembers = boardMembers.filter(m => m.id !== memberId);
+    renderMemberAvatars();
+    openMembersModal();
+    showToast('Member removed', 'info');
+  } catch {
+    showToast('Could not remove member', 'error');
+  }
+}
+
+// ── Comments ──────────────────────────────────────────────────
+async function loadComments(taskId) {
+  const list = document.getElementById('commentsList');
+  if (!list) return;
+  try {
+    const data = await apiFetch(ENDPOINTS.comments(taskId));
+    const currentUserId = getUser()?.id || null;
+    list.innerHTML = data?.length
+      ? data.map(c => Templates.commentItem(c, currentUserId)).join('')
+      : '<p class="text-muted-sm">No comments yet.</p>';
+  } catch {
+    list.innerHTML = '<p class="text-muted-sm">Could not load comments.</p>';
+  }
+}
+
+async function postComment(taskId) {
+  const input = document.getElementById('commentInput');
+  const text  = input?.value.trim();
+  if (!text) return;
+  input.value = '';
+  try {
+    await apiFetch(ENDPOINTS.comments(taskId), {
+      method: 'POST',
+      body: JSON.stringify({ text }),
+    });
+    loadComments(taskId);
+  } catch {
+    showToast('Could not post comment', 'error');
+  }
+}
+
+async function deleteComment(commentId) {
+  const taskId = currentTaskId;
+  try {
+    await apiFetch(ENDPOINTS.comment(taskId, commentId), { method: 'DELETE' });
+    loadComments(taskId);
+  } catch {
+    showToast('Could not delete comment', 'error');
+  }
+}
+
 // ── Load & Init ───────────────────────────────────────────────
 async function loadTasks() {
   if (isGuest()) { renderBoard(); switchColTab(activeCol); return; }
@@ -276,6 +387,7 @@ async function loadTasks() {
       if (data?.members) boardMembers = data.members;
       if (data?.title)   { const el = document.getElementById('boardTitle'); if (el) el.textContent = data.title; }
       if (data?.description) { const el = document.getElementById('boardDesc'); if (el) el.textContent = data.description; }
+      if (data?.color)   window._boardColor = data.color;
     } catch { /* leave empty */ }
   }
   renderMemberAvatars(); renderBoard(); updateOpenCount();
