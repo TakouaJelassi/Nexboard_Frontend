@@ -6,6 +6,10 @@ The frontend for NexBoard — a full-stack Kanban board application.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-7c3aed.svg)](LICENSE)
 
+**[Live Demo](https://nexboard-frontend.onrender.com)** &nbsp;·&nbsp; **[API Docs](https://nexboard-backend-ld7s.onrender.com/api/docs/)**
+
+> The backend runs on Render's free tier and may take ~30s to wake up on first visit.
+
 </div>
 
 ---
