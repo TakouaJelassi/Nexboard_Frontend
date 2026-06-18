@@ -68,7 +68,7 @@ No build step required. Open `index.html` directly in a browser,
 or serve with VS Code Live Server / any static file server.
 
 Make sure the backend is running at `http://127.0.0.1:8000/api/`  
-(see [`../nexboard_backend/README.md`](../nexboard_backend/README.md)).
+(see the [backend repository](https://nexboard-backend-ld7s.onrender.com/api/docs/) for API docs).
 
 Before deploying, update the API URL in [`assets/js/config.js`](assets/js/config.js):
 
