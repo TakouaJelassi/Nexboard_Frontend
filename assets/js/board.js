@@ -227,12 +227,8 @@ function openEditBoardModal() {
   const desc  = document.getElementById('boardDesc')?.textContent  || '';
   document.getElementById('editBoardName').value = title;
   document.getElementById('editBoardDesc').value = desc;
-  const color = tasks.length ? null : null;
-  const currentColor = document.querySelector('input[name="editBoardColor"]');
-  if (currentColor) {
-    const match = document.querySelector(`input[name="editBoardColor"][value="${window._boardColor || '#7c3aed'}"]`);
-    if (match) match.checked = true;
-  }
+  const match = document.querySelector(`input[name="editBoardColor"][value="${window._boardColor || '#7c3aed'}"]`);
+  if (match) match.checked = true;
   openModal('editBoardModal');
 }
 
@@ -392,7 +388,10 @@ async function loadTasks() {
       if (data?.members) boardMembers = data.members;
       if (data?.title)   { const el = document.getElementById('boardTitle'); if (el) el.textContent = data.title; }
       if (data?.description) { const el = document.getElementById('boardDesc'); if (el) el.textContent = data.description; }
-      if (data?.color)   window._boardColor = data.color;
+      if (data?.color) {
+        window._boardColor = data.color;
+        const dot = document.getElementById('boardColorDot');
+        if (dot) dot.style.background = data.color;}
     } catch { /* leave empty */ }
   }
   renderMemberAvatars(); renderBoard(); updateOpenCount();

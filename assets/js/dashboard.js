@@ -233,7 +233,7 @@ async function createBoard() {
   try {
     const created = await apiFetch(ENDPOINTS.boards(), {
       method: 'POST',
-      body: JSON.stringify({ title: name, description: desc }),
+      body: JSON.stringify({ title: name, description: desc, color }),
     });
     if (created) {
       showToast(`Board "${name}" created!`, 'success');
