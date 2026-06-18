@@ -265,6 +265,9 @@ async function saveEditBoard() {
     document.getElementById('boardDesc').textContent  = desc;
     window._boardColor = color;
     showToast('Board updated', 'success');
+    // Update sidebar dot directly without waiting for a re-fetch
+    const dot = document.querySelector(`#sidebarBoards a[href="board.html?id=${currentBoardId}"] .sidebar-board-dot`);
+    if (dot) dot.style.background = color;
     loadSidebarBoards(currentBoardId);
   } catch {
     showToast('Could not update board', 'error');
