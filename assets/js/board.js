@@ -341,9 +341,11 @@ async function loadComments(taskId) {
   if (!list) return;
   try {
     const data = await apiFetch(ENDPOINTS.comments(taskId));
-    const currentUserId = getUser()?.id || null;
-    list.innerHTML = data?.length
-      ? data.map(c => Templates.commentItem(c, currentUserId)).join('')
+    const me = getUser();
+    const myName = me?.fullname || null;
+    const enriched = (data || []).map(c => ({ ...c, is_author: c.author === myName }));
+    list.innerHTML = enriched.length
+      ? enriched.map(c => Templates.commentItem(c, null)).join('')
       : '<p class="text-muted-sm">No comments yet.</p>';
   } catch {
     list.innerHTML = '<p class="text-muted-sm">Could not load comments.</p>';
@@ -358,7 +360,7 @@ async function postComment(taskId) {
   try {
     await apiFetch(ENDPOINTS.comments(taskId), {
       method: 'POST',
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ content: text }),
     });
     loadComments(taskId);
   } catch {

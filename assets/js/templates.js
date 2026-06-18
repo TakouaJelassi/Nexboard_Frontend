@@ -232,15 +232,15 @@ const Templates = {
   // ── Comment item ─────────────────────────────────────────────
   commentItem: (c, currentUserId) => `
     <div class="comment-item" data-id="${c.id}">
-      ${Templates.avatar(c.author?.fullname || c.author?.email || '?', 0, 28)}
+      ${Templates.avatar(c.author || '?', 0, 28)}
       <div class="comment-body">
         <div class="comment-meta">
-          <span class="comment-author">${c.author?.fullname || c.author?.email || 'Unknown'}</span>
+          <span class="comment-author">${c.author || 'Unknown'}</span>
           <span class="comment-time">${new Date(c.created_at).toLocaleDateString()}</span>
         </div>
-        <p class="comment-text">${c.text}</p>
+        <p class="comment-text">${c.content}</p>
       </div>
-      ${c.author?.id === currentUserId
+      ${c.is_author
         ? `<button class="btn-icon-danger comment-del" title="Delete comment" onclick="deleteComment(${c.id})">✕</button>`
         : ''}
     </div>`,
