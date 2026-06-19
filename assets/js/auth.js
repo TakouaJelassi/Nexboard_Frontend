@@ -38,7 +38,10 @@ function initPasswordToggle(btnId, inputId) {
   const inp = document.getElementById(inputId);
   if (!btn || !inp) return;
   btn.addEventListener('click', () => {
-    inp.type = inp.type === 'password' ? 'text' : 'password';
+    const show = inp.type === 'password';
+    inp.type = show ? 'text' : 'password';
+    const img = btn.querySelector('img');
+    if (img) img.src = img.src.replace(show ? 'eye.svg' : 'eye-off.svg', show ? 'eye-off.svg' : 'eye.svg');
   });
 }
 
@@ -115,6 +118,7 @@ function initRegisterForm() {
   if (!form) return;
 
   initPasswordToggle('togglePw', 'password');
+  initPasswordToggle('toggleConfirmPw', 'confirmPassword');
   initPasswordStrength('password', 'pwBar', 'pwHint');
 
   form.addEventListener('submit', async (e) => {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +8,7 @@
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
+
 <body>
 
   <div class="auth-page">
@@ -22,7 +24,7 @@
       <form class="auth-form" id="registerForm">
         <div class="form-group">
           <label class="form-label" for="fullname">Full name</label>
-          <input class="form-input" type="text" id="fullname" placeholder="Takoua Jelassi" required />
+          <input class="form-input" type="text" id="fullname" placeholder="Jane Doe" required />
         </div>
 
         <div class="form-group">
@@ -33,9 +35,9 @@
         <div class="form-group">
           <label class="form-label" for="password">Password</label>
           <div class="input-wrapper">
-            <input class="form-input input-with-icon" type="password" id="password"
-              placeholder="Min. 8 characters" required />
-            <button type="button" id="togglePw" class="btn-ghost btn-icon input-icon-btn">
+            <input class="form-input input-with-icon" type="password" id="password" placeholder="Min. 8 characters"
+              required />
+            <button type="button" id="togglePw" class="btn-ghost input-icon-btn">
               <img src="../assets/icons/eye.svg" width="18" height="18" class="icon-muted" alt="" />
             </button>
           </div>
@@ -45,10 +47,15 @@
           <span id="pwHint" class="pw-hint"></span>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="confirmPassword">Confirm password</label>
-          <input class="form-input" type="password" id="confirmPassword" placeholder="Repeat password" required />
-        </div>
+      <div class="form-group">
+  <label class="form-label" for="confirmPassword">Confirm password</label>
+  <div class="input-wrapper">
+    <input class="form-input input-with-icon" type="password" id="confirmPassword" placeholder="Repeat password" required />
+    <button type="button" id="toggleConfirmPw" class="btn-ghost input-icon-btn">
+      <img src="../assets/icons/eye.svg" width="18" height="18" class="icon-muted" alt="" />
+    </button>
+  </div>
+</div>
 
         <div id="errorMsg" class="alert alert-error hidden"></div>
         <div id="successMsg" class="alert alert-success hidden"></div>
@@ -72,4 +79,5 @@
   <script src="../assets/js/config.js"></script>
   <script src="../assets/js/auth.js"></script>
 </body>
+
 </html>
