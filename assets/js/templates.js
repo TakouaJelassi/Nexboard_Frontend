@@ -154,7 +154,10 @@ const Templates = {
           <img src="../assets/icons/calendar.svg" width="11" height="11" class="icon-muted" alt="" />
           ${formatDate(t.due_date)}
         </span>
-        ${assigneeName ? Templates.avatar(assigneeName, 0, 24) : ''}
+        <span class="task-footer-right">
+          ${t.comments_count ? `<span class="task-comments-count">💬 ${t.comments_count}</span>` : ''}
+          ${assigneeName ? Templates.avatar(assigneeName, 0, 24) : ''}
+        </span>
       </div>
     </div>`,
 
