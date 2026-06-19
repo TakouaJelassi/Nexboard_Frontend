@@ -79,6 +79,7 @@ function switchColTab(col) {
 
 // ── Render Board ──────────────────────────────────────────────
 function renderBoard() {
+  const totalTasks = filterTasks(tasks).length;
   COLUMNS.forEach(col => {
     const colTasks  = filterTasks(tasks.filter(t => toFrontend(t.status) === col));
     const container = document.getElementById(`tasks-${col}`);
@@ -87,7 +88,13 @@ function renderBoard() {
     if (!container || !countEl) return;
     countEl.textContent = colTasks.length;
     if (tabCount) tabCount.textContent = colTasks.length;
-    container.innerHTML = colTasks.map(t => Templates.taskCard(t, assigneeName(t))).join('');
+    if (colTasks.length > 0) {
+      container.innerHTML = colTasks.map(t => Templates.taskCard(t, assigneeName(t))).join('');
+    } else if (col === 'todo' && totalTasks === 0) {
+      container.innerHTML = Templates.emptyTasks('No tasks yet. Add your first task!');
+    } else {
+      container.innerHTML = '';
+    }
   });
 }
 
@@ -259,6 +266,8 @@ async function saveEditBoard() {
     });
     document.getElementById('boardTitle').textContent = title;
     document.getElementById('boardDesc').textContent  = desc;
+    const headerDot = document.getElementById('boardColorDot');
+    if (headerDot) headerDot.style.background = color;
     window._boardColor = color;
     showToast('Board updated', 'success');
     // Update sidebar dot directly without waiting for a re-fetch
@@ -351,6 +360,11 @@ async function loadComments(taskId) {
   }
 }
 
+function updateCommentCount(taskId, delta) {
+  const task = tasks.find(t => t.id === taskId);
+  if (task) { task.comments_count = Math.max(0, (task.comments_count || 0) + delta); renderBoard(); }
+}
+
 async function postComment(taskId) {
   const input = document.getElementById('commentInput');
   const text  = input?.value.trim();
@@ -361,6 +375,7 @@ async function postComment(taskId) {
       method: 'POST',
       body: JSON.stringify({ content: text }),
     });
+    updateCommentCount(taskId, 1);
     loadComments(taskId);
   } catch {
     showToast('Could not post comment', 'error');
@@ -371,6 +386,7 @@ async function deleteComment(commentId) {
   const taskId = currentTaskId;
   try {
     await apiFetch(ENDPOINTS.comment(taskId, commentId), { method: 'DELETE' });
+    updateCommentCount(taskId, -1);
     loadComments(taskId);
   } catch {
     showToast('Could not delete comment', 'error');

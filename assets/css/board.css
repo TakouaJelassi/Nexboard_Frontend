@@ -87,6 +87,8 @@
   display: flex; align-items: center; gap: 4px;
 }
 .task-assignees { display: flex; }
+.task-footer-right    { display: flex; align-items: center; gap: 8px; }
+.task-comments-count  { font-size: 0.72rem; color: var(--text-muted); }
 
 /* ── Priority Labels ────────────────────────────────────────── */
 .task-priority {
