@@ -16,6 +16,24 @@
 .icon-muted  { filter: brightness(0) invert(0.55); pointer-events: none; }
 .icon-danger { filter: brightness(0) saturate(100%) invert(40%) sepia(80%) saturate(500%) hue-rotate(320deg); }
 
+/* Light mode: icons must be dark */
+[data-theme="light"] .btn-icon  { filter: brightness(0) invert(0); }
+[data-theme="light"] .stat-img  { filter: brightness(0) invert(0); }
+[data-theme="light"] .search-icon { filter: brightness(0) invert(0.4); }
+[data-theme="light"] .icon-muted  { filter: brightness(0) invert(0.45); }
+
+/* ── Theme toggle button ────────────────────────────────────── */
+.theme-toggle {
+  background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 8px 12px;
+  font-size: 0.85rem; color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), color var(--transition);
+}
+.theme-toggle:hover { background: var(--surface); color: var(--text-primary); }
+.theme-toggle .theme-icon { font-size: 1rem; }
+
 /* ── Filter Chips ───────────────────────────────────────────── */
 .filter-chip {
   font-size: 0.78rem; font-weight: 500;

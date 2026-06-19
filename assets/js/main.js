@@ -167,8 +167,26 @@ function closeSidebar() {
   if (overlay) overlay.style.display = 'none';
 }
 
+// ── Theme ─────────────────────────────────────────────────────
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('nexboard-theme', theme);
+  document.querySelectorAll('.theme-toggle-label').forEach(el => {
+    el.textContent = theme === 'light' ? '🌙 Dark mode' : '☀️ Light mode';
+  });
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  applyTheme(current === 'light' ? 'dark' : 'light');
+}
+
 // ── Init ──────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  // Restore saved theme
+  const saved = localStorage.getItem('nexboard-theme') || 'dark';
+  applyTheme(saved);
+
   initAvatar();
   setGreeting();
 
