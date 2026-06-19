@@ -171,14 +171,21 @@ function closeSidebar() {
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('nexboard-theme', theme);
-  document.querySelectorAll('.theme-toggle-label').forEach(el => {
-    el.textContent = theme === 'light' ? '🌙 Dark mode' : '☀️ Light mode';
+  document.querySelectorAll('.theme-toggle').forEach(btn => {
+    const icon  = btn.querySelector('.theme-icon');
+    const label = btn.querySelector('.theme-toggle-label');
+    if (icon)  icon.textContent  = theme === 'light' ? '☀️' : '🌙';
+    if (label) label.textContent = theme === 'light' ? 'Light mode' : 'Dark mode';
   });
 }
 
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   applyTheme(current === 'light' ? 'dark' : 'light');
+  // Redraw chart if on dashboard (picks up new theme colors)
+  if (typeof drawStatusChart === 'function' && typeof allTasksCache !== 'undefined') {
+    drawStatusChart(allTasksCache);
+  }
 }
 
 // ── Init ──────────────────────────────────────────────────────

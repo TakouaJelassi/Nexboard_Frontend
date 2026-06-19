@@ -45,6 +45,13 @@ function drawStatusChart(tasks) {
 
   if (chartInstance) { chartInstance.destroy(); }
 
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const borderCol  = isLight ? '#f4f4f8' : '#0d0d1a';
+  const tooltipBg  = isLight ? '#ffffff' : '#1a1a2e';
+  const titleCol   = isLight ? '#0f0f1a' : '#e2e8f0';
+  const bodyCol    = isLight ? '#4a4a6a' : '#8892a4';
+  const borderTip  = isLight ? '#e2e2ee' : '#2a2a3e';
+
   chartInstance = new Chart(canvas, {
     type: 'doughnut',
     data: {
@@ -52,7 +59,7 @@ function drawStatusChart(tasks) {
       datasets: [{
         data,
         backgroundColor: colors,
-        borderColor: '#0d0d1a',
+        borderColor: borderCol,
         borderWidth: 3,
         hoverOffset: 6,
       }],
@@ -67,10 +74,10 @@ function drawStatusChart(tasks) {
           callbacks: {
             label: ctx => ` ${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw / total * 100)}%)`,
           },
-          backgroundColor: '#1a1a2e',
-          titleColor: '#e2e8f0',
-          bodyColor: '#8892a4',
-          borderColor: '#2a2a3e',
+          backgroundColor: tooltipBg,
+          titleColor: titleCol,
+          bodyColor: bodyCol,
+          borderColor: borderTip,
           borderWidth: 1,
           padding: 10,
         },

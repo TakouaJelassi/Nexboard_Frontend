@@ -137,7 +137,7 @@
 }
 .feature-card:hover        { border-color: #7c3aed25; transform: translateY(-3px); }
 .feature-card:hover::before { opacity: 1; }
-.feature-icon     { width: 48px; height: 48px; border-radius: var(--radius-md); background: #0d0d1a; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.feature-icon     { width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--bg-base); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
 .feature-icon svg { width: 24px; height: 24px; }
 .feature-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
 .feature-desc  { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; }
@@ -155,7 +155,7 @@
   position: relative; overflow: hidden;
 }
 .board-card-accent      { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-.board-card:hover       { border-color: #ffffff18; transform: translateY(-3px); box-shadow: 0 12px 40px #0008; }
+.board-card:hover       { border-color: var(--border); transform: translateY(-3px); box-shadow: var(--shadow-card); }
 .board-card-title       { font-size: 1rem; font-weight: 600; margin: 12px 0 6px; }
 .board-card-desc        { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
 .board-card-stats       { display: flex; gap: 14px; font-size: 0.78rem; color: var(--text-muted); }

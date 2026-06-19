@@ -25,14 +25,31 @@
 /* ── Theme toggle button ────────────────────────────────────── */
 .theme-toggle {
   background: none; border: none; cursor: pointer;
-  display: flex; align-items: center; gap: 8px;
-  width: 100%; padding: 8px 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 10px 16px;
   font-size: 0.85rem; color: var(--text-secondary);
-  border-radius: var(--radius-sm);
   transition: background var(--transition), color var(--transition);
 }
 .theme-toggle:hover { background: var(--surface); color: var(--text-primary); }
-.theme-toggle .theme-icon { font-size: 1rem; }
+.theme-toggle-left { display: flex; align-items: center; gap: 9px; }
+.theme-toggle .theme-icon { font-size: 0.95rem; }
+
+/* pill switch */
+.theme-switch {
+  width: 34px; height: 18px; border-radius: 99px;
+  background: var(--border);
+  position: relative; flex-shrink: 0;
+  transition: background 0.25s;
+}
+.theme-switch::after {
+  content: ''; position: absolute;
+  top: 3px; left: 3px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform 0.25s, background 0.25s;
+}
+[data-theme="light"] .theme-switch { background: var(--accent-purple); }
+[data-theme="light"] .theme-switch::after { transform: translateX(16px); background: #fff; }
 
 /* ── Filter Chips ───────────────────────────────────────────── */
 .filter-chip {
@@ -74,7 +91,7 @@
   color: var(--text-primary);
   border: 1px solid var(--border);
 }
-.btn-secondary:hover { background: var(--bg-card-hover); border-color: #ffffff20; }
+.btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--border); }
 .btn-ghost { color: var(--text-secondary); padding: 8px 14px; }
 .btn-ghost:hover { color: var(--text-primary); background: var(--bg-card); border-radius: var(--radius-sm); }
 .btn-lg   { padding: 14px 28px; font-size: 1rem; border-radius: var(--radius-lg); }
@@ -100,7 +117,7 @@
   outline: none;
   border-color: var(--accent-purple);
   box-shadow: 0 0 0 3px var(--accent-glow);
-  background: #16162a;
+  background: var(--bg-input);
 }
 
 /* ── Cards ──────────────────────────────────────────────────── */
@@ -112,7 +129,7 @@
   box-shadow: var(--shadow-card);
   transition: var(--transition);
 }
-.card:hover { border-color: #ffffff18; transform: translateY(-2px); }
+.card:hover { border-color: var(--border); transform: translateY(-2px); }
 
 /* ── Badges ─────────────────────────────────────────────────── */
 .badge {
@@ -190,7 +207,7 @@
   display: flex; align-items: center; justify-content: center;
   transition: var(--transition);
 }
-.modal-close:hover { color: var(--text-primary); border-color: #ffffff20; }
+.modal-close:hover { color: var(--text-primary); border-color: var(--border); }
 .modal-body   { display: flex; flex-direction: column; gap: 18px; }
 .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
 

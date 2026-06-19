@@ -9,7 +9,7 @@
   height: 64px;
   display: flex; align-items: center;
   padding: 0 24px;
-  background: #0d0d1af5;
+  background: color-mix(in srgb, var(--bg-base) 96%, transparent);
   border-bottom: 1px solid var(--border);
 }
 .navbar-inner {
