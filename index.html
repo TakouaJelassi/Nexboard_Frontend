@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NexBoard | Kanban task board</title>
-  <meta name="description" content="NexBoard is a Kanban app for managing boards, tasks and team work — built with Django REST Framework and Vanilla JS." />
+  <meta name="description"
+    content="NexBoard is a Kanban app for managing boards, tasks and team work — built with Django REST Framework and Vanilla JS." />
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <script>
@@ -12,6 +14,7 @@
     if (token && token !== 'guest') window.location.replace('pages/dashboard.html');
   </script>
 </head>
+
 <body>
 
   <!-- ── Navigation ───────────────────────────────────────────── -->
@@ -45,8 +48,8 @@
           <span class="gradient-text">without the clutter</span>
         </h1>
         <p class="hero-desc">
-          NexBoard is a simple Kanban app I built to practice a complete workflow: accounts, boards, tasks, assignments and a REST API behind it.
-        </p>
+          NexBoard is a collaborative project management platform designed to help teams organize tasks, track progress
+          and manage workflows efficiently. </p>
         <div class="hero-actions">
           <a href="pages/register.html" class="btn btn-primary btn-lg">
             <img src="assets/icons/plus.svg" width="18" height="18" class="btn-icon" alt="" />
@@ -100,32 +103,38 @@
       <div class="feature-card">
         <div class="feature-icon"><img src="assets/icons/feature-kanban.svg" alt="" /></div>
         <h3 class="feature-title">Kanban boards</h3>
-        <p class="feature-desc">Create boards with To Do, In Progress, Review and Done columns. Tasks can be moved on the board or updated from the detail view.</p>
+        <p class="feature-desc">Create boards with To Do, In Progress, Review and Done columns. Tasks can be moved on
+          the board or updated from the detail view.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><img src="assets/icons/feature-tasks.svg" alt="" /></div>
         <h3 class="feature-title">Task management</h3>
-        <p class="feature-desc">Each task can have a priority, due date, assignee and reviewer, so the board has enough structure without becoming heavy.</p>
+        <p class="feature-desc">Each task can have a priority, due date, assignee and reviewer, so the board has enough
+          structure without becoming heavy.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><img src="assets/icons/feature-team.svg" alt="" /></div>
         <h3 class="feature-title">Team members</h3>
-        <p class="feature-desc">Add people to a board by email and see members directly in the board header and on task cards.</p>
+        <p class="feature-desc">Add people to a board by email and see members directly in the board header and on task
+          cards.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><img src="assets/icons/feature-auth.svg" alt="" /></div>
         <h3 class="feature-title">Token authentication</h3>
-        <p class="feature-desc">Registration and login use DRF token authentication. There is also a guest mode for quickly checking the UI.</p>
+        <p class="feature-desc">Registration and login use DRF token authentication. There is also a guest mode for
+          quickly checking the UI.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><img src="assets/icons/feature-dashboard.svg" alt="" /></div>
         <h3 class="feature-title">Dashboard overview</h3>
-        <p class="feature-desc">The dashboard groups boards, open tasks and status numbers in one place, with quick access to assigned work.</p>
+        <p class="feature-desc">The dashboard groups boards, open tasks and status numbers in one place, with quick
+          access to assigned work.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><img src="assets/icons/feature-api.svg" alt="" /></div>
         <h3 class="feature-title">REST API</h3>
-        <p class="feature-desc">The backend exposes the main project data through Django REST Framework, with OpenAPI docs at <code>/api/docs/</code>.</p>
+        <p class="feature-desc">The backend exposes the main project data through Django REST Framework, with OpenAPI
+          docs at <code>/api/docs/</code>.</p>
       </div>
     </div>
   </section>
@@ -149,4 +158,5 @@
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
+
 </html>
