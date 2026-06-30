@@ -115,6 +115,12 @@ No build command needed — everything is plain HTML/CSS/JS.
 
 MIT License — see the [LICENSE](LICENSE) file for details.
 
+## About the Project
+
+NexBoard started as a way to practice full-stack development end to end — from designing a REST API to building a responsive UI without relying on any framework. The goal was to understand what happens under the hood before reaching for abstractions.
+
+---
+
 ## Contact
 
-Takoua Jelassi — takoua.jelassi@gmail.com
+Takoua Jelassi — takoua.jelassi@gmail.com · [LinkedIn](https://www.linkedin.com/in/takoua-jelassi)
